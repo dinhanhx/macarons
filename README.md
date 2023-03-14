@@ -7,7 +7,7 @@ A tool to generate image-text data. The following tasks are supported:
 
 # Setup
 
-You need to `git clone` the repo first because I won't upload this to PyPI
+You need to `git clone` the repo first because I won't upload this package to PyPI
 
 With good old pip
 ```
@@ -90,4 +90,31 @@ for task in TASKS:
 
 ## Via CLI
 
-WIP
+### Ask for help
+Command:
+```bash
+python -m macarons.cli --help
+```
+Output:
+```text
+Usage: python -m macarons.cli [OPTIONS]
+
+  Build dataset
+
+  Available tasks: all, image caption, visual question answer
+
+Options:
+  --output_dir TEXT       where the dataset directory should be contained
+                          [default: .]
+  --image_height INTEGER  the image height  [default: 224]
+  --image_width INTEGER   the image width  [default: 224]
+  --amount INTEGER        number of samples  [default: 1000]
+  --task TEXT             dataset type  [default: all]
+  --seed INTEGER          random seed  [default: 42]
+  --help                  Show this message and exit.
+```
+
+### Example
+```bash
+python -m macarons.cli --output_dir=data --amount=10
+```
