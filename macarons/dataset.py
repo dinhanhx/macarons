@@ -51,7 +51,7 @@ def build(
     jsonl_path = output_dir.joinpath(f'macarons-{task}/map.jsonl')
 
     with jsonl.open(jsonl_path, 'w') as fp:
-        for i in tqdm(range(amount)):
+        for i in tqdm(range(amount), ncols=0):
             dp = generate_datapoint(*image_size)
 
             if task in ['all', 'image_caption']:
