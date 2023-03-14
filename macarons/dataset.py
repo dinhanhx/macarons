@@ -39,7 +39,7 @@ def build(
     Raises
     ------
     ValueError
-        _description_
+        When unknown task is specified
     """
     if task not in TASKS:
         raise ValueError(f'Unknown task. Task should be in {TASKS}')
