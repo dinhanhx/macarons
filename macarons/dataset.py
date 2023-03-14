@@ -80,4 +80,4 @@ def build(
 
 if __name__ == '__main__':
     for task in TASKS:
-        build(Path(f'data/{task}'), amount=10, task=task)
+        build(Path(f'demo_data/{task}'), amount=10, task=task)
