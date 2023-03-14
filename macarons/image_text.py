@@ -50,19 +50,19 @@ class Datapoint(JSONWizard):
             ],
         ]
 
-    def make_id_path(self, index: int, path: Path, zfill: int = 6):
+    def make_id_path(self, image_id: str, path: Path):
         """Make attributes: image_id, image_path
 
         Parameters
         ----------
-        index : int
-            a non-negative integer
+        image_id : str
+            6 digits e.g 000420
         path : Path
-            a Path object
+            image/image_id.jpg e.g image/000420.jpg
         zfill : int, optional
             the specified length to stop adding zeros (0) at the beginning of the string , by default 6
         """
-        self.image_id = str(index).zfill(zfill)
+        self.image_id = image_id
         self.image_path = path.as_posix()
 
 
@@ -130,7 +130,7 @@ if __name__ == '__main__':
     dp = generate_datapoint(256, 256)
     dp.make_caption()
     dp.make_question_answer_list()
-    dp.make_id_path(0, demo_path)
+    dp.make_id_path('demo', demo_path)
 
     imsave(dp.image_path, dp.image, check_contrast=False)
     pprint(dp.to_dict(exclude=('image')))
