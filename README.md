@@ -26,10 +26,10 @@ poetry install
 
 # Roadmap
 
-- [] No import from skimage
-    - [] Use Pillow to save image
-    - [] Implement skimage.draw.disk() from scratch
-- [] Simplify tqdm progress bar
+- [ ] No import from skimage
+    - [ ] Use Pillow to save image
+    - [ ] Implement skimage.draw.disk() from scratch
+- [ ] Simplify tqdm progress bar
 
 # Demo
 
