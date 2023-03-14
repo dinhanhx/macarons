@@ -7,6 +7,10 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
+numpy = "^1.24.2"
+webcolors = "^1.12"
+scikit-image = "^0.20.0"
+dataclass-wizard = "^0.22.2"
 
 
 [tool.poetry.group.dev.dependencies]
