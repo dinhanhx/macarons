@@ -46,9 +46,9 @@ def build(
     random.seed(seed)
     np.random.seed(seed)
 
-    image_path = output_dir.joinpath('data/image')
+    image_path = output_dir.joinpath(f'macarons-{task}/image')
     image_path.mkdir(parents=True, exist_ok=True)
-    jsonl_path = output_dir.joinpath('data/map.jsonl')
+    jsonl_path = output_dir.joinpath(f'macarons-{task}/map.jsonl')
 
     with jsonl.open(jsonl_path, 'w') as fp:
         for i in tqdm(range(amount)):
@@ -80,4 +80,4 @@ def build(
 
 if __name__ == '__main__':
     for task in TASKS:
-        build(Path(f'demo_data/{task}'), amount=10, task=task)
+        build(Path('demo_data'), amount=10, task=task)
