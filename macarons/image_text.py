@@ -2,7 +2,7 @@ import random
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import List
-from pprint import pprint
+import json
 
 import numpy as np
 from webcolors import CSS3_NAMES_TO_HEX, hex_to_rgb
@@ -133,4 +133,4 @@ if __name__ == '__main__':
     dp.make_id_path('demo', demo_path)
 
     imsave(dp.image_path, dp.image, check_contrast=False)
-    pprint(dp.to_dict(exclude=('image')))
+    print(json.dumps(dp.to_dict(exclude=('image')), indent=4))
