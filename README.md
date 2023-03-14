@@ -7,6 +7,8 @@ A tool to generate image-text data. The following tasks are supported:
 
 # Setup
 
+You need to `git clone` the repo first because I won't upload this to PyPI
+
 With good old pip
 ```
 pip install -e .
@@ -58,7 +60,7 @@ you give the function this path `demo_data`. Then it will create `demo_data/data
 ```python
 import random
 from pathlib import Path
-from pprint import pprint
+import json
 
 import numpy as np
 from skimage.io import imsave
@@ -78,7 +80,7 @@ dp.make_question_answer_list()
 dp.make_id_path('demo', demo_path)
 
 imsave(dp.image_path, dp.image, check_contrast=False)
-pprint(dp.to_dict(exclude=('image')))
+print(json.dumps(dp.to_dict(exclude=('image')), indent=4))
 
 # Generate all tasks
 for task in TASKS:
