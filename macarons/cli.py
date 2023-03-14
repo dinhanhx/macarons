@@ -3,9 +3,9 @@ from pathlib import Path
 from macarons.dataset import build
 
 
-@click.command()
+@click.command(context_settings={'show_default': True})
 @click.option(
-    '--output_dir', default='', help='where the dataset directory should be contained'
+    '--output_dir', default='.', help='where the dataset directory should be contained'
 )
 @click.option('--image_height', default=224, help='the image height')
 @click.option('--image_width', default=224, help='the image width')
