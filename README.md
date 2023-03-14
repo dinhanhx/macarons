@@ -54,7 +54,7 @@ Here is a single data point for all of them task. This json can be different dep
 # Usage
 
 **NOTE**: `macarons.dataset.build()` function build the dataset folder **inside** user-defined folder. For example,
-you give the function this path `demo_data`. Then it will create `demo_data/data` which contain `map.jsonl` file and `image` folder. All the paths recorded in `map.jsonl` are relative to `image/` folder solely.
+you give the function this path `demo_data`. Then it will create `demo_data/macarons-{task}` which contain `map.jsonl` file and `image` folder. All the paths recorded in `map.jsonl` are relative to `image/` folder solely.
 
 ## Via API
 ```python
@@ -84,7 +84,7 @@ print(json.dumps(dp.to_dict(exclude=('image')), indent=4))
 
 # Generate all tasks
 for task in TASKS:
-    build(Path(f'demo_data/{task}'), amount=10, task=task)
+    build(Path('demo_data'), amount=10, task=task)
 
 ```
 
