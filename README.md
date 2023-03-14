@@ -7,7 +7,12 @@ A tool to generate image-text data. The following tasks are supported:
 
 # Setup
 
-You need to `git clone` the repo first because I won't upload this package to PyPI
+Assuming you don't `git clone` the repo because you just want to use the tool via API and CLI
+```
+pip install git+https://github.com/dinhanhx/macarons.git
+```
+
+Assuming you `git clone` the repo because you want to develope something based on the source
 
 With good old pip
 ```
@@ -18,6 +23,13 @@ With fancy poetry
 ```
 poetry install
 ```
+
+# Roadmap
+
+- [] No import from skimage
+    - [] Use Pillow to save image
+    - [] Implement skimage.draw.disk() from scratch
+- [] Simplify tqdm progress bar
 
 # Demo
 
