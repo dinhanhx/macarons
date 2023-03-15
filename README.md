@@ -26,9 +26,10 @@ poetry install
 
 # Roadmap
 
-- [ ] No import from skimage
-    - [ ] Use Pillow to save image
-    - [ ] Implement skimage.draw.disk() from scratch
+- [x] No import from skimage
+    - [x] Use Pillow to save image
+    - [x] ~~Implement skimage.draw.disk() from scratch~~ Use Pillow to draw
+- [x] No import from numpy
 - [x] Simplify tqdm progress bar
 
 # Demo
@@ -74,15 +75,11 @@ import random
 from pathlib import Path
 import json
 
-import numpy as np
-from skimage.io import imsave
-
 from macarons.dataset import build, TASKS
 from macarons.image_text import generate_datapoint
 
 seed = 42
 random.seed(seed)
-np.random.seed(seed)
 
 # Generate a single data point
 demo_path = Path('demo.jpg')
@@ -91,7 +88,7 @@ dp.make_caption()
 dp.make_question_answer_list()
 dp.make_id_path('demo', demo_path)
 
-imsave(dp.image_path, dp.image, check_contrast=False)
+dp.image.save(dp.image_path)
 print(json.dumps(dp.to_dict(exclude=('image')), indent=4))
 
 # Generate all tasks
