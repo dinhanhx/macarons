@@ -2,12 +2,10 @@ import random
 from pathlib import Path
 
 import jsonlines as jsonl
-import numpy as np
 from tqdm import tqdm
 from typing import Tuple
 
 from macarons.image_text import generate_datapoint
-from skimage.io import imsave
 
 TASKS = ['all', 'image_caption', 'visual_question_answer']
 
@@ -44,7 +42,6 @@ def build(
     if task not in TASKS:
         raise ValueError(f'Unknown task. Task should be in {TASKS}')
     random.seed(seed)
-    np.random.seed(seed)
 
     image_path = output_dir.joinpath(f'macarons-{task}/image')
     image_path.mkdir(parents=True, exist_ok=True)
@@ -61,11 +58,13 @@ def build(
                 dp.make_question_answer_list()
 
             image_id = str(i).zfill(6)
-            dp.make_id_path(image_id, Path(f'image/{image_id}.jpg'))  # relative to map.jsonl
-            imsave(
-                image_path.joinpath(f'{image_id}.jpg'),  # relative to image_path and output_dir
-                dp.image,
-                check_contrast=False,
+            dp.make_id_path(
+                image_id, Path(f'image/{image_id}.jpg')
+            )  # relative to map.jsonl
+            dp.image.save(
+                image_path.joinpath(
+                    f'{image_id}.jpg'
+                ),  # relative to image_path and output_dir
             )
 
             if task == 'image_caption':

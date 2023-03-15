@@ -1,15 +1,13 @@
+import json
 import random
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import List
-import json
 
-import numpy as np
-from webcolors import CSS3_NAMES_TO_HEX, hex_to_rgb
-from skimage.draw import disk
-from skimage.io import imsave
 from dataclass_wizard import JSONWizard
 from dataclass_wizard.enums import LetterCase
+from PIL import Image, ImageDraw
+from webcolors import CSS3_NAMES_TO_HEX, hex_to_rgb
 
 
 @dataclass
@@ -20,7 +18,7 @@ class Datapoint(JSONWizard):
         key_transform_with_load = LetterCase.SNAKE
         key_transform_with_dump = LetterCase.SNAKE
 
-    image: np.ndarray
+    image: Image.Image
     circle_color_name: str
     background_color_name: str
 
@@ -100,10 +98,7 @@ def generate_datapoint(height, width) -> Datapoint:
     color_list = random.sample(list(CSS3_NAMES_TO_HEX.items()), 2)
     color_list = [Color(i[0], i[1]) for i in color_list]
 
-    image = np.zeros((height, width, 3), dtype=np.uint8)
-
-    # Paint the background
-    image[:, :] = color_list[1].rgb_tuple
+    image = Image.new(mode='RGB', size=(height, width), color=color_list[1].name)
 
     # Paint the full circle
     radius = random.randint(1, min(height, width) // 2)
@@ -111,8 +106,11 @@ def generate_datapoint(height, width) -> Datapoint:
         random.randint(radius, height - radius),
         random.randint(radius, width - radius),
     )
-    rr, cc = disk(center, radius, shape=(height, width))
-    image[rr, cc] = color_list[0].rgb_tuple
+    leftUpPoint = (center[0] - radius, center[1] - radius)
+    rightDownPoint = (center[0] + radius, center[1] + radius)
+
+    image_draw = ImageDraw.Draw(image)
+    image_draw.ellipse([leftUpPoint, rightDownPoint], fill=color_list[0].name)
 
     return Datapoint(
         image=image,
@@ -124,7 +122,6 @@ def generate_datapoint(height, width) -> Datapoint:
 if __name__ == '__main__':
     seed = 42
     random.seed(seed)
-    np.random.seed(seed)
 
     demo_path = Path('demo.jpg')
     dp = generate_datapoint(256, 256)
@@ -132,5 +129,5 @@ if __name__ == '__main__':
     dp.make_question_answer_list()
     dp.make_id_path('demo', demo_path)
 
-    imsave(dp.image_path, dp.image, check_contrast=False)
+    dp.image.save(dp.image_path)
     print(json.dumps(dp.to_dict(exclude=('image')), indent=4))
