@@ -5,6 +5,15 @@ A tool to generate image-text data. The following tasks are supported:
 - visual question answer
 - all of them
 
+The algorithm to generate randomly is described below:
+- Get two named colors from [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS/named-color#css_level_3_values)
+- Create an image with the second color
+- Choose a radius in range from 1 to `min(height, width) // 2`
+- Choose a center point
+    - x in range from `radius` to `height - radius`
+    - y in range from `radius` to `width - radius`
+- Draw a circle by `radius` and `center` with the first color
+
 # Setup
 
 Assuming you don't `git clone` the repo because you just want to use the tool via API and CLI
