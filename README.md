@@ -33,6 +33,11 @@ With fancy poetry
 poetry install
 ```
 
+Run a bit testing
+```
+pytest
+```
+
 # Roadmap
 
 - [x] No import from skimage
