@@ -7,7 +7,7 @@ from typing import List
 from dataclass_wizard import JSONWizard
 from dataclass_wizard.enums import LetterCase
 from PIL import Image, ImageDraw
-from webcolors import CSS3_NAMES_TO_HEX, hex_to_rgb
+from webcolors import CSS3_NAMES_TO_HEX
 
 
 @dataclass
@@ -64,15 +64,6 @@ class Datapoint(JSONWizard):
         self.image_path = path.as_posix()
 
 
-@dataclass
-class Color:
-    name: str
-    hex_value: str
-
-    def __post_init__(self):
-        self.rgb_tuple = tuple(hex_to_rgb(self.hex_value))
-
-
 def generate_datapoint(height, width) -> Datapoint:
     """Generate a random circle on a random background
 
@@ -94,11 +85,10 @@ def generate_datapoint(height, width) -> Datapoint:
             background_color_name
     """
 
-    # Create two Color, the former is for the full circle, the latter is for the background
-    color_list = random.sample(list(CSS3_NAMES_TO_HEX.items()), 2)
-    color_list = [Color(i[0], i[1]) for i in color_list]
+    # Create two colors, the former is for the full circle, the latter is for the background
+    color_list = random.sample(list(CSS3_NAMES_TO_HEX.keys()), 2)
 
-    image = Image.new(mode='RGB', size=(height, width), color=color_list[1].name)
+    image = Image.new(mode='RGB', size=(height, width), color=color_list[1])
 
     # Paint the full circle
     radius = random.randint(1, min(height, width) // 2)
@@ -110,12 +100,12 @@ def generate_datapoint(height, width) -> Datapoint:
     rightDownPoint = (center[0] + radius, center[1] + radius)
 
     image_draw = ImageDraw.Draw(image)
-    image_draw.ellipse([leftUpPoint, rightDownPoint], fill=color_list[0].name)
+    image_draw.ellipse([leftUpPoint, rightDownPoint], fill=color_list[0])
 
     return Datapoint(
         image=image,
-        circle_color_name=color_list[0].name,
-        background_color_name=color_list[1].name,
+        circle_color_name=color_list[0],
+        background_color_name=color_list[1],
     )
 
 
